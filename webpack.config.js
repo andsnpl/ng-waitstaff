@@ -8,7 +8,7 @@ module.exports = exports = {
   },
   output: {
     path: path.resolve(__dirname, 'build/'),
-    publicPath: '/build/',
+    publicPath: 'build/',
     filename: 'js/[name].min.js',
     chunkFilename: 'js/[id].min.js'
   },
