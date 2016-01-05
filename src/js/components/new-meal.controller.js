@@ -5,10 +5,14 @@ angular.module('waitstaff').controller('NewMealCtrl', [
   function NewMealCtrl($scope, mealService) {
     let ctrl = this;
 
-    ctrl.reset = function (form) {
-      form && form.$setPristine();
+    ctrl.reset = function () {
       $scope.meal = mealService.reset();
       $scope.bill = mealService.emptyBill();
+    };
+
+    ctrl.cancel = function (form) {
+      form.$setPristine();
+      this.reset();
     };
 
     ctrl.submit = function (form) {
