@@ -15,62 +15,17 @@
   </style>
 </head>
 <body ng-app="waitstaff" ng-cloak>
-  <main ng-controller="main">
-    <header class="topheader">
-      <h1>Waitstaff Calculator</h1>
-    </header>
-    <div class="errormessage">{{ errorMessage }}</div>
-    <section class="entry">
-      <header>
-        <h2>Enter the Meal Details</h2>
-      </header>
-      <form novalidate class="entryform" name="entryform"
-            ng-submit="submit(entryform)">
-        <label for="price">Base Meal Price: $</label><!--
-     --><input required type="number" step="0.01" id="entryform-price"
-               ng-model="entryForm.price">
-        <label for="tax">Tax Rate: %</label><!--
-     --><input required type="number" id="entryform-tax"
-               ng-model="entryForm.tax">
-        <label for="tip">Tip Percentage: %</label><!--
-     --><input required type="number" id="entryform-tip"
-               ng-model="entryForm.tip">
-
-        <input type="submit" class="submitbutton" value="Submit">
-        <input type="button" class="cancelbutton" value="Cancel"
-               ng-click="cancel(entryform)">
-      </form>
-    </section>
-    <section class="bill">
-      <header>
-        <h2>Customer Charges</h2>
-      </header>
-      <p class="bill-subtotal">
-        Subtotal: {{ bill.subtotal | currency }}
-      </p>
-      <p class="bill-tip">
-        Tip: {{ bill.tip | currency }}
-      </p>
-      <p class="bill-total">
-        Total: {{ bill.total() | currency }}
-      </p>
-    </section>
-    <section class="totals">
-      <header>
-        <h2>My Earnings Info</h2>
-      </header>
-      <p class="totals-tips">
-        Tip Total: {{ totals.tips | currency }}
-      </p>
-      <p class="totals-meals">
-        Meal count: {{ totals.meals }}
-      </p>
-      <p class="totals-avg-tip">
-        Average Tip Per Meal: {{ totals.avgTip() | currency }}
-      </p>
-    </section>
-    <input type="button" value="Reset" class="resetbutton"
-           ng-click="resetAll(entryform)">
+  <header class="topheader">
+    <h1>Waitstaff Calculator</h1>
+  </header>
+  <nav class="viewnav">
+    <ul class="links">
+      <li><a href="#/" class="link">Home</a></li>
+      <li><a href="#/new-meal" class="link">New Meal</a></li>
+      <li><a href="#/my-earnings" class="link">My Earnings</a></li>
+    </ul>
+  </nav>
+  <main ng-view>
   </main>
 <script src="js/index.min.js"></script></body>
 </html>

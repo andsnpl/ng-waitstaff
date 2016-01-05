@@ -1,0 +1,16 @@
+<section class="totals">
+  <header>
+    <h2>My Earnings Info</h2>
+  </header>
+  <p class="totals-tips">
+    Tip Total: {{ totals.tips | currency }}
+  </p>
+  <p class="totals-meals">
+    Meal count: {{ totals.meals }}
+  </p>
+  <p class="totals-avg-tip">
+    Average Tip Per Meal: {{ totals.avgTip() | currency }}
+  </p>
+  <input type="button" value="Reset" class="resetbutton"
+         ng-click="totals.reset()">
+</section>
