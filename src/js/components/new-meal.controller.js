@@ -1,25 +1,27 @@
 import angular from 'angular';
 
 angular.module('waitstaff').controller('NewMealCtrl', [
-  '$scope', 'meal',
-  function NewMealCtrl($scope, meal) {
+  '$scope', 'mealService',
+  function NewMealCtrl($scope, mealService) {
+    let ctrl = this;
 
-    this.reset = function (form) {
-      form.$setPristine();
-      $scope.meal = meal.reset();
-      $scope.bill = meal.bill();
+    ctrl.reset = function (form) {
+      form && form.$setPristine();
+      $scope.meal = mealService.reset();
+      $scope.bill = mealService.emptyBill();
     };
 
-    this.submit = function (form) {
+    ctrl.submit = function (form) {
       if (form.$invalid) {
-        this.errorMessage = 'Form must be filled out completely before saving.';
+        $scope.errorMessage
+          = 'Form must be filled out completely before saving.';
         return;
       }
 
-      this.errorMessage = '';
-      $scope.bill = meal.submit();
+      $scope.errorMessage = '';
+      $scope.bill = mealService.submit();
     };
 
-    this.reset();
+    ctrl.reset();
   }
 ]);

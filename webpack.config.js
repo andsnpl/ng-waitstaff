@@ -1,6 +1,7 @@
 var webpack = require('webpack'),
     path = require('path'),
-    HtmlWebpackPlugin = require('html-webpack-plugin');
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = exports = {
   entry: {
@@ -32,7 +33,11 @@ module.exports = exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/index.html'),
       inject: 'body'
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: 'src/templates',
+        to: 'templates' }
+    ])
   ]
 };
 
