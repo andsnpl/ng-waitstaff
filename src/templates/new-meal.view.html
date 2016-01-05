@@ -1,23 +1,26 @@
-<div class="errormessage">{{ errorMessage }}</div>
-<header>
-  <h2>Enter the Meal Details</h2>
-</header>
-
 <section class="meal">
+  <div class="errormessage">{{ errorMessage }}</div>
+  <header>
+    <h2>Enter the Meal Details</h2>
+  </header>
+
   <form novalidate class="entryform" name="entryform"
         ng-submit="alert(ctrl.reset); ctrl.submit(entryform)">
 
-     <label for="meal-price">Base Meal Price: $</label><!--
-  --><input required type="number" step="0.01" id="meal-price"
-            ng-model="meal.price">
+    <label for="meal-price">Base Meal Price: $
+      <input required type="number" step="0.01" id="meal-price"
+             ng-model="meal.price">
+    </label>
 
-     <label for="meal-tax">Tax Rate: %</label><!--
-  --><input required type="number" id="meal-tax"
-            ng-model="meal.tax">
+    <label for="meal-tax">Tax Rate: %
+      <input required type="number" id="meal-tax"
+             ng-model="meal.tax">
+    </label>
 
-     <label for="meal-tip">Tip Percentage: %</label><!--
-  --><input required type="number" id="meal-tip"
-            ng-model="meal.tip">
+    <label for="meal-tip">Tip Percentage: %
+      <input required type="number" id="meal-tip"
+             ng-model="meal.tip">
+    </label>
 
     <input type="submit" class="submitbutton" value="Submit">
     <input type="button" class="cancelbutton" value="Cancel"
