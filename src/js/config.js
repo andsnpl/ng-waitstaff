@@ -1,33 +1,49 @@
 import angular from 'angular';
 import 'angular-route';
+import 'angular-local-storage';
 
-angular.module('waitstaff', ['ngRoute'])
+angular.module('waitstaff', ['ngRoute', 'LocalStorageModule'])
   .config([
-    '$routeProvider',
-    function ($routeProvider) {
+    '$routeProvider', 'localStorageServiceProvider',
+    function ($routeProvider, localStorageServiceProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: 'templates/index.html'
+          templateUrl: 'templates/index.view.html'
         })
         .when('/error', {
-          templateUrl: 'templates/error.html'
+          templateUrl: 'templates/error.view.html'
         })
         .when('/new-meal', {
-          templateUrl: 'templates/new-meal.html',
-          controller: 'NewMealCtrl as this'
+          templateUrl: 'templates/new-meal.view.html',
+          controller: 'NewMealCtrl as ctrl'
         })
         .when('/my-earnings', {
-          templateUrl: 'templates/my-earnings.html',
-          controller: 'MyEarningsCtrl as this'
+          templateUrl: 'templates/my-earnings.view.html',
+          controller: 'MyEarningsCtrl as ctrl'
         })
-        .otherwise('/index');
+        .otherwise('/');
+
+      localStorageServiceProvider.setPrefix('waitstaff');
     }
   ])
   .run([
-    '$rootScope', '$location',
-    function ($rootScope, $location) {
-      $rootScope.$on('$routeChangeError', function () {
+    '$rootScope', '$location', 'localStorageService',
+    function ($rootScope, $location, localStorageService) {
+      $rootScope.$on('$routeChangeError', () => {
         $location.path('/error');
       });
+
+      $rootScope.$on('$routeChangeSuccess', () => {
+        localStorageService.set('lastVisited', $location.path());
+      });
+
+      $rootScope.$on('$routeUpdate', () => {
+        localStorageService.set('lastVisited', $location.path());
+      });
+
+      let previousRoute = localStorageService.get('lastVisited');
+      if (previousRoute) {
+        $location.path(previousRoute);
+      }
     }
   ]);

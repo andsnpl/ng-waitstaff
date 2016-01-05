@@ -1,40 +1,51 @@
 import angular from 'angular';
 
-angular.module('waitstaff').factory('meal', [
-  'totalEarnings',
-  function (totalEarnings) {
-    return {
+angular.module('waitstaff').factory('mealService', [
+  'totalEarningsService',
+  function (totalEarningsService) {
+    let values;
+    let meal = {
       reset() {
-        this.values = {
+        values = {
           price: 9.99
         };
-        return this.values;
+        return values;
       },
       checkValues() {
-        if (!this.values
-         || !this.values.price
-         || !this.values.tax
-         || !this.values.tip) {
+        if (!values
+         || !values.price
+         || !values.tax
+         || !values.tip) {
           throw new Error('Values object is no good.');
         }
-        return this.values;
+        return values;
       },
       bill() {
         let values = this.checkValues(),
-            subtotal = values.price * (1 + values.tax),
-            tip = subtotal * values.tip;
+            subtotal = values.price * (1 + values.tax / 100),
+            tip = subtotal * values.tip / 100;
         return {
           subtotal,
           tip,
           total: subtotal + tip
         };
       },
+      emptyBill() {
+        return {
+          subtotal: 0,
+          tip: 0,
+          total: 0
+        };
+      },
       submit() {
         let mealTotals = this.bill();
-        totalEarnings.meals++;
-        totalEarnings.tips += mealTotals.tip;
+        totalEarningsService.meals++;
+        totalEarningsService.tips += mealTotals.tip;
+        totalEarningsService.persist();
         return mealTotals;
       }
     };
+
+    return meal;
   }
 ]);
