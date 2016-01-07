@@ -1,8 +1,6 @@
 import angular from 'angular';
-import 'angular-route';
-import 'angular-local-storage';
 
-angular.module('waitstaff', ['ngRoute', 'LocalStorageModule'])
+angular.module('waitstaff')
   .config([
     '$routeProvider', 'localStorageServiceProvider',
     function ($routeProvider, localStorageServiceProvider) {
@@ -27,8 +25,10 @@ angular.module('waitstaff', ['ngRoute', 'LocalStorageModule'])
     }
   ])
   .run([
-    '$rootScope', '$location', 'localStorageService',
-    function ($rootScope, $location, localStorageService) {
+    '$rootScope', '$location', '$timeout', 'localStorageService',
+    function ($rootScope, $location, $timeout, localStorageService) {
+      $timeout(() => { $rootScope.isLoaded = true; }, 1000);
+
       $rootScope.$on('$routeChangeError', () => {
         $location.path('/error');
       });

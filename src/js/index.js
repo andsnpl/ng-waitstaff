@@ -1,4 +1,5 @@
-import './config';
+import './waitstaff';
+import './routes';
 import './components/total-earnings.service';
 import './components/meal.service';
 import './components/new-meal.controller';
