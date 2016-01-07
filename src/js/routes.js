@@ -25,8 +25,10 @@ angular.module('waitstaff')
     }
   ])
   .run([
-    '$rootScope', '$location', 'localStorageService',
-    function ($rootScope, $location, localStorageService) {
+    '$rootScope', '$location', '$timeout', 'localStorageService',
+    function ($rootScope, $location, $timeout, localStorageService) {
+      $timeout(() => { $rootScope.isLoaded = true; }, 1000);
+
       $rootScope.$on('$routeChangeError', () => {
         $location.path('/error');
       });
